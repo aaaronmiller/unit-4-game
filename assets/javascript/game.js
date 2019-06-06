@@ -29,6 +29,7 @@ function clearOpp () {
 };
 
 function charSelector () {
+    
     myChar = event.srcElement.id;
     myHp = eval('characters.' + myChar + ".hp");
     myPower = eval('characters.' + myChar + ".power");
@@ -40,45 +41,47 @@ function charSelector () {
 };
 
 function badGuySelector () {
-    badGuyChar = event.srcElement.id;
-    badGuyHp = eval('characters.' + badGuyChar + ".hp");
-    badGuyPower = eval('characters.' + badGuyChar + ".power");
-    console.log(badGuyChar);
-    badGuyList = "";
-    if (killedBadGuy = "false") {
-    selectedBadGuy = opponents.indexOf(badGuyChar);
-    opponents.splice(selectedBadGuy,1);};
-    // console.log (badGuyChar);
-    // console.log(selectedBadGuy);
-    console.log (opponents);
-    // break;   
-    if(phase === 2 || phase === 3) {
-        // clearSelectOpp ();
-        // badGuySelector (pitbull);
-        // document.getElementById("opponent").innerHTML = '<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>';
-        // $("#opponent").html('<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>');
-        $("#opponent").html('<img style:"text-align:center; float:left" id = "' + badGuyChar + '" src = "assets/images/' + badGuyChar + '.jpg">');
-    
-        //TODO: list remaining opponents here
-        // alert(opponents.length);
-        for (i=0; i < opponents.length; i++) {
-            // badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
-            badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector()" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
-            $("#badguys").html(badGuyList);
-            };
-            if (opponents.length === 0) {
-                $("#badguys").html("");
-            };
-        phase = 3;
-        // alert("booger!");
-        // alert(opponents);
-        }
-    // clearSelectMe ();
-};
-
-function youLoose () {
-    alert("YOU HAVE DIED!");
-    resetgame ();   
+    if (badGuyHp < 1) {
+        badGuyChar = event.srcElement.id;
+        badGuyHp = eval('characters.' + badGuyChar + ".hp");
+        badGuyPower = eval('characters.' + badGuyChar + ".power");
+        console.log(badGuyChar);
+        badGuyList = "";
+        if (killedBadGuy = "false") {
+            selectedBadGuy = opponents.indexOf(badGuyChar);
+            opponents.splice(selectedBadGuy,1);};
+            // console.log (badGuyChar);
+            // console.log(selectedBadGuy);
+            console.log (opponents);
+            // break;   
+            if(phase === 2 || phase === 3) {
+                // clearSelectOpp ();
+                // badGuySelector (pitbull);
+                // document.getElementById("opponent").innerHTML = '<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>';
+                // $("#opponent").html('<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>');
+                $("#opponent").html('<img style:"text-align:center; float:left" id = "' + badGuyChar + '" src = "assets/images/' + badGuyChar + '.jpg">');
+                
+                //TODO: list remaining opponents here
+                // alert(opponents.length);
+                for (i=0; i < opponents.length; i++) {
+                    // badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
+                    badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector()" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+                    $("#badguys").html(badGuyList);
+                };
+                if (opponents.length === 0) {
+                    $("#badguys").html("");
+                };
+                phase = 3;
+                // alert("booger!");
+                // alert(opponents);
+            }
+            // clearSelectMe ();
+        };
+    };
+        
+        function youLoose () {
+            alert("YOU HAVE DIED!");
+            resetgame ();   
 }
 
 function fatality () {
