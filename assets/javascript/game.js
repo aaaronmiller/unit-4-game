@@ -7,7 +7,7 @@ myHp = "";
 badGuyHp = "";
 myPower = "";
 badGuyPower = "";
-characters = {cheta: {hp:100, power:20},pitbull: {hp:80, power:15},pitBull: {hp: 80, power:15},dalmation: {hp:120, power: 10},chihuahua: {hp:50, power: 5}};
+characters = {cheta: {hp:100, power:10},pitbull: {hp:80, power:8},dalmation: {hp:120, power: 6},chihuahua: {hp:50, power: 5}};
 opponents = ["cheta", "pitbull", "dalmation", "chihuahua"];
 badGuyList = "";
 selectedBadGuy = "";
@@ -34,6 +34,7 @@ function charSelector () {
     myPower = eval('characters.' + myChar + ".power");
     mySpot = opponents.indexOf(myChar);
     opponents.splice(mySpot,1);
+    console.log(opponents);
     // break;   
     // clearSelectMe ();
 };
@@ -43,13 +44,35 @@ function badGuySelector () {
     badGuyHp = eval('characters.' + badGuyChar + ".hp");
     badGuyPower = eval('characters.' + badGuyChar + ".power");
     console.log(badGuyChar);
+    badGuyList = "";
+    if (killedBadGuy = "false") {
     selectedBadGuy = opponents.indexOf(badGuyChar);
-    
-    opponents.splice(selectedBadGuy,1);
-    console.log (badGuyChar);
+    opponents.splice(selectedBadGuy,1);};
+    // console.log (badGuyChar);
     // console.log(selectedBadGuy);
     console.log (opponents);
     // break;   
+    if(phase === 2 || phase === 3) {
+        // clearSelectOpp ();
+        // badGuySelector (pitbull);
+        // document.getElementById("opponent").innerHTML = '<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>';
+        // $("#opponent").html('<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>');
+        $("#opponent").html('<img style:"text-align:center; float:left" id = "' + badGuyChar + '" src = "assets/images/' + badGuyChar + '.jpg">');
+    
+        //TODO: list remaining opponents here
+        // alert(opponents.length);
+        for (i=0; i < opponents.length; i++) {
+            // badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
+            badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector()" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+            $("#badguys").html(badGuyList);
+            };
+            if (opponents.length === 0) {
+                $("#badguys").html("");
+            };
+        phase = 3;
+        // alert("booger!");
+        // alert(opponents);
+        }
     // clearSelectMe ();
 };
 
@@ -60,16 +83,22 @@ function youLoose () {
 
 function fatality () {
     alert("FATALITY! GOOD JOB! SELECT A NEW OPPONENT!");
-    phase = 1;
+    // phase = 1;
     clearOpp ();
     badGuyList = "";
-    killedBadGuy = opponents.indexOf(badGuyChar);
-    opponents.splice(killedBadGuy,1);
+    killedBadGuy = true;
+    // killedBadGuy = opponents.indexOf(badGuyChar);
+    // opponents.splice(killedBadGuy,1);
     for (i=0; i < opponents.length; i++) {
-        badGuyList = badGuyList + '<img style:"text-align:center; float:left" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+        badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector(' + opponents[i] + ')" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
         // badGuyList = badGuyList + '<h3 id =' +  + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
         $("#badguys").html(badGuyList);
+        if (opponents.length === 0) {
+            $("#badguys").html("");
         };
+        };
+   
+    phase = 2;
 
 }
 // alert(characters.cheta.hp);  
@@ -78,7 +107,7 @@ function fatality () {
 // $("#cheta").on("click", function() {
 $("#cheta").on("click", function() {
     if(phase === 1) {
-        charName = document.getElementById("cheta");
+        charName = "cheta";
         clearSelectMe ();
         charSelector(charName);
         // document.getElementById("you").innerHTML = '<h3 id = ' + myChar + '>' + myChar + '<h3>';
@@ -88,7 +117,7 @@ $("#cheta").on("click", function() {
         badGuyList = "";
         //loop for displaying badguys
         for (i=0; i <= opponents.length-1 ; i++) {
-            badGuyList = badGuyList + '<img style:"text-align:center; float:left" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+            badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector(' + opponents[i] + ')" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
             console.log(badGuyList);
             console.log(opponents);
             console.log(i);
@@ -104,9 +133,10 @@ $("#cheta").on("click", function() {
     }
         
 });
+
 $("#pitbull").on("click", function() {
     if(phase === 1) {
-        charName = document.getElementById("pitbull");
+        charName = "pitbull";
         clearSelectMe ();
         charSelector(charName);
         // document.getElementById("you").innerHTML = '<h3 id = ' + myChar + '>' + myChar + '<h3>';
@@ -116,7 +146,7 @@ $("#pitbull").on("click", function() {
         
         //loop for displaying badguys
         for (i=0; i< opponents.length; i++) {
-            badGuyList = badGuyList + '<img style:"text-align:center; float:left" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+            badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector(' + opponents[i] + ')" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
             // badGuyList = badGuyList + '<h3 id =' +  + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
             $("#badguys").html(badGuyList);
             };
@@ -126,12 +156,15 @@ $("#pitbull").on("click", function() {
         $("#power").text(myPower);
         phase = 2;
      
-    }
+    };
+
+   
         
 });
+
 $("#dalmation").on("click", function() {
     if(phase === 1) {
-        charName = document.getElementById("dalmation");
+        charName = "dalmation";
         clearSelectMe ();
         charSelector(charName);
         // document.getElementById("you").innerHTML = '<h3 id = ' + myChar + '>' + myChar + '<h3>';
@@ -141,7 +174,7 @@ $("#dalmation").on("click", function() {
         
         //loop for displaying badguys
         for (i=0; i< opponents.length; i++) {
-            badGuyList = badGuyList + '<img style:"text-align:center; float:left" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+            badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector(' + opponents[i] + ')" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
             // badGuyList = badGuyList + '<h3 id =' +  + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
             $("#badguys").html(badGuyList);
             };
@@ -156,7 +189,7 @@ $("#dalmation").on("click", function() {
 });
 $("#chihuahua").on("click", function() {
     if(phase === 1) {
-        charName = document.getElementById("chihuahua");
+        charName = "chihuahua";
         clearSelectMe ();
         charSelector(charName);
         // document.getElementById("you").innerHTML = '<h3 id = ' + myChar + '>' + myChar + '<h3>';
@@ -166,7 +199,7 @@ $("#chihuahua").on("click", function() {
         
         //loop for displaying badguys
         for (i=0; i< opponents.length; i++) {
-            badGuyList = badGuyList + '<img style:"text-align:center; float:left" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+            badGuyList = badGuyList + '<img style:"text-align:center; float:left" onClick="badGuySelector(' + opponents[i] + ')" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
             // badGuyList = badGuyList + '<h3 id =' +  + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
             $("#badguys").html(badGuyList);
             };
@@ -180,37 +213,37 @@ $("#chihuahua").on("click", function() {
         
 });
 
-$("#badguys").on("click", function() {
-    // if(phase === 1) { }
-// select a new opponent after winning
-    // for (i=0; i< opponents.length; i++) {
-    //     badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
-    //     $("#badguys").html(badGuyList);
-    //     };
-    // };
+// $("#badguys").on("click", function() {
+//     // if(phase === 1) { }
+// // select a new opponent after winning
+//     // for (i=0; i< opponents.length; i++) {
+//     //     badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
+//     //     $("#badguys").html(badGuyList);
+//     //     };
+//     // };
 
 
     
-    if(phase === 2) {
-    // clearSelectOpp ();
-    badGuySelector ();
-    // document.getElementById("opponent").innerHTML = '<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>';
-    // $("#opponent").html('<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>');
-    $("#opponent").html('<img style:"text-align:center; float:left" id = "' + badGuyChar + '" src = "assets/images/' + badGuyChar + '.jpg">');
+//     if(phase === 2) {
+//     // clearSelectOpp ();
+//     badGuySelector ();
+//     // document.getElementById("opponent").innerHTML = '<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>';
+//     // $("#opponent").html('<h3 id = ' + badGuyChar + '>' + badGuyChar + '<h3>');
+//     $("#opponent").html('<img style:"text-align:center; float:left" id = "' + badGuyChar + '" src = "assets/images/' + badGuyChar + '.jpg">');
 
-    //TODO: list remaining opponents here
-    // alert(opponents.length);
-    for (i=0; i < opponents.length; i++) {
-        // badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
-        badGuyList = '<img style:"text-align:center; float:left" onClick="badGuySelector()" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
-        $("#badguys").html(badGuyList);
-        };
-    phase = 3;
-    // alert("booger!");
-    // alert(opponents);
-    }
-// };
-});
+//     //TODO: list remaining opponents here
+//     // alert(opponents.length);
+//     for (i=0; i < opponents.length; i++) {
+//         // badGuyList = badGuyList + '<h3 id =' + opponents[i] + ' onClick="badGuySelector()">' + opponents[i] + '</h3>';
+//         badGuyList = '<img style:"text-align:center; float:left" onClick="badGuySelector()" id = "' + opponents[i] + '" src = "assets/images/' + opponents[i] + '.jpg">';
+//         $("#badguys").html(badGuyList);
+//         };
+//     phase = 3;
+//     // alert("booger!");
+//     // alert(opponents);
+//     }
+// // };
+// });
 
 $("#you").click(function() {
     clearSelectMe ();
